@@ -1,0 +1,11 @@
+package shootemup.geometry;
+
+
+public class Range {
+
+    public Range(int lower, int upper) {
+
+    }
+    
+}
+
