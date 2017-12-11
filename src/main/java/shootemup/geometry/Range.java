@@ -1,15 +1,16 @@
 package shootemup.geometry;
 
 
-public class Range {
+public class Range implements IRange {
 
     public Range(int lower, int upper) {
 	this._lower = lower;
 	this._upper = upper;
     }
 
+    @Override
     public boolean contains(int value) {
-	return value >= _lower && value <= _upper;
+	return value >= _lower && value < _upper;
     }
 
     // These are only public to ease testing.
