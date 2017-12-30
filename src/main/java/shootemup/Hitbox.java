@@ -1,22 +1,34 @@
 package shootemup;
 
+import java.util.List;
+import java.util.stream.IntStream;
+
 import shootemup.geometry.IRange;
-import shootemup.geometry.Point;
+import shootemup.geometry.Vector;
 
 
 public class Hitbox {
 
-    public Hitbox(IRange horizontalRange, IRange verticalRange) {
-	this.horizontalRange = horizontalRange;
-	this.verticalRange = verticalRange;
+    public Hitbox(List<IRange> dimensions) {
+	assertEnough(dimensions);
+	this.dimensions = dimensions;
     }
 
-    public boolean contains(Point point) {
-	boolean containsX = horizontalRange.contains(point.x);
-	boolean containsY = verticalRange.contains(point.y);
-	return containsX && containsY;
+    public boolean contains(Vector point) {
+	for (int i = 0; i < dimensions.size(); i++) {
+	    IRange dimension = dimensions.get(i);
+            Integer element = point.elements.get(i);
+            if (!dimension.contains(element))
+		return false;
+	}
+	return true;
     }
 
-    private final IRange horizontalRange;
-    private final IRange verticalRange;
+    private void assertEnough(List<IRange> dimensions) {
+        if (dimensions.size() <= 0)
+	    throw new IllegalArgumentException("Hitbox cannot be 0-dimensional");
+    }
+
+    private final List<IRange> dimensions;
+
 }

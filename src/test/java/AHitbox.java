@@ -1,87 +1,89 @@
 import static org.junit.Assert.*;
 import org.junit.*;
 
+import java.util.stream.Collectors;
 import java.util.List;
 import java.util.ArrayList;
+import static java.util.Arrays.asList;
+import java.util.stream.IntStream;
+import java.util.concurrent.ThreadLocalRandom;
 
 import shootemup.Hitbox;
-import shootemup.geometry.Point;
+import shootemup.geometry.IRange;
+import shootemup.geometry.Vector;
 
 
 public class AHitbox {
 
-    @Test
-    public void checksIfTheXValueOfThePointIsWithinRange() {
-	for (Point point : arbitraryPoints()) {
-	    cleanAllState();
-	    assertFalse(mockHorizontalRange.calledWith(point.x));
-	    hitbox.contains(point);
-	    assertTrue(mockHorizontalRange.calledWith(point.x));
-	}
+    @Test(expected = IllegalArgumentException.class)
+    public void mustSpanAtLeastOneDimension() {
+	new Hitbox(asList());
     }
 
     @Test
-    public void checksIfTheYValueOfThePointIsWithinRange() {
-    	for (Point point : arbitraryPoints()) {
-	    cleanAllState();
-    	    assertFalse(mockVerticalRange.calledWith(point.y));
-    	    hitbox.contains(point);
-    	    assertTrue(mockVerticalRange.calledWith(point.y));
-    	}
-    }
-
-    @Test
-    public void doesNotContainPointIfAllRangeChecksFail() {
-	mockHorizontalRange = new MockRange(false);
-	mockVerticalRange = new MockRange(false);
-	hitbox = new Hitbox(mockHorizontalRange, mockVerticalRange);
-	for (Point point : arbitraryPoints())
+    public void doesNotContainAPointIfADimensionCheckFails() {
+	manyNumbersOfDimensions().forEach(numberOfDimensions -> {
+	    mockDimensions = nonPerfectMockDimensions(numberOfDimensions);
+            point = randomPoint(numberOfDimensions);
+            hitbox = new Hitbox(mockDimensions);
 	    assertFalse(hitbox.contains(point));
+	});
     }
 
     @Test
-    public void doesNotContainPointIfHorizontalRangeCheckFails() {
-	mockHorizontalRange = new MockRange(false);
-	mockVerticalRange = new MockRange(true);
-	hitbox = new Hitbox(mockHorizontalRange, mockVerticalRange);
-	for (Point point : arbitraryPoints())
-	    assertFalse(hitbox.contains(point));
+    public void containsAPointIfAllDimensionChecksPass() {
+	manyNumbersOfDimensions().forEach(numberOfDimensions -> {
+	    mockDimensions = perfectMockDimensions(numberOfDimensions);
+            point = randomPoint(numberOfDimensions);
+            hitbox = new Hitbox(mockDimensions);
+            assertTrue(hitbox.contains(point));
+	});
     }
 
-    @Test
-    public void doesNotContainPointIfVerticalRangeCheckFails() {
-	mockHorizontalRange = new MockRange(true);
-	mockVerticalRange = new MockRange(false);
-	hitbox = new Hitbox(mockHorizontalRange, mockVerticalRange);
-	for (Point point : arbitraryPoints())
-	    assertFalse(hitbox.contains(point));
+    private IntStream manyNumbersOfDimensions() {
+	return IntStream.range(1, 20);
     }
 
-    @Test
-    public void containsPointIfAllRangeChecksPass() {
-	mockHorizontalRange = new MockRange(true);
-	mockVerticalRange = new MockRange(true);
-	hitbox = new Hitbox(mockHorizontalRange, mockVerticalRange);
-	for (Point point : arbitraryPoints())
-	    assertTrue(hitbox.contains(point));
+    private List<IRange> nonPerfectMockDimensions(int amount) {
+	List<IRange> mockDimensions = new ArrayList<>();
+	ThreadLocalRandom random = ThreadLocalRandom.current();
+
+	int correctAmount = amount == 1 ? 0 : random.nextInt(amount - 1);
+	
+	IntStream.range(0, correctAmount)
+	    .forEach($ -> mockDimensions.add(new MockRange(true)));
+
+	int incorrectAmount = amount - correctAmount;
+	IntStream.range(0, incorrectAmount)
+	    .forEach($ -> mockDimensions.add(new MockRange(false)));
+
+	return mockDimensions;
     }
 
-    private List<Point> arbitraryPoints() {
-	final int ARBITRARY_COVERAGE = 200;
-	List<Point> points = new ArrayList<>();
-	for (int x = -ARBITRARY_COVERAGE; x < ARBITRARY_COVERAGE; x++)
-	    for (int y = -ARBITRARY_COVERAGE; y < ARBITRARY_COVERAGE; y++)
-		points.add(new Point(x, y));
-	return points;
+    private List<IRange> perfectMockDimensions(int amount) {
+	List<IRange> mockDimensions = new ArrayList<>();
+        IntStream.range(0, amount)
+            .forEach($ -> mockDimensions.add(new MockRange(true)));
+        return mockDimensions;
     }
 
-    private void cleanAllState() {
-	mockHorizontalRange = new MockRange();
-	mockVerticalRange = new MockRange();
-	hitbox = new Hitbox(mockHorizontalRange, mockVerticalRange);
+    private List<IRange> mockDimensions(int amount) {
+	List<IRange> mockDimensions = new ArrayList<>();
+	IntStream.range(0, amount).forEach($ -> mockDimensions.add(new MockRange()) );
+	return mockDimensions;
     }
 
-    private MockRange mockHorizontalRange;
-    private MockRange mockVerticalRange;
+    private Vector randomPoint(int numberOfDimensions) {
+	ThreadLocalRandom random = ThreadLocalRandom.current();
+	List<Integer> elements = IntStream
+	    .range(0, numberOfDimensions)
+	    .map($ -> random.nextInt(Integer.MIN_VALUE, Integer.MAX_VALUE))
+	    .boxed()
+	    .collect(Collectors.toList());
+	return new Vector(elements);
+    }
+    
     private Hitbox hitbox;
+    private List<IRange> mockDimensions;
+    private Vector point;
 }
