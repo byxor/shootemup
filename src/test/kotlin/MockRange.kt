@@ -13,9 +13,5 @@ class MockRange(private val returnValue: Boolean = false): IRange {
     return returnValue
   }
 
-  fun calledWith(value:Int):Boolean {
-    return valuesUsed.contains(value)
-  }
-
-  
+  fun calledWith(value: Int) = valuesUsed.contains(value)
 }
