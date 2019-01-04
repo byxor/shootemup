@@ -2,11 +2,9 @@ package shootemup
 
 import shootemup.geometry.*
 
-class Hitbox(private val dimensions: List<IRange>) {
+class Hitbox(private val dimensions: Dimensions) {
 
-    init {
-        assertEnough(dimensions)
-    }
+    init { checkNumberOf(dimensions) }
 
     fun contains(point: Vector): Boolean {
         for (i in dimensions.indices) {
@@ -18,7 +16,7 @@ class Hitbox(private val dimensions: List<IRange>) {
         return true
     }
 
-    private fun assertEnough(dimensions: List<IRange>) {
+    private fun checkNumberOf(dimensions: Dimensions) {
         if (dimensions.size <= 0)
             throw IllegalArgumentException("Hitbox cannot be 0-dimensional")
     }

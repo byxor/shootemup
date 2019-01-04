@@ -35,7 +35,7 @@ class AHitbox {
         return IntRange(1, 20)
     }
 
-    private fun imperfectDimensions(amount: Int): List<IRange> {
+    private fun imperfectDimensions(amount: Int): Dimensions {
         val dimensions = mutableListOf<IRange>()
         val random = ThreadLocalRandom.current()
 
@@ -48,13 +48,13 @@ class AHitbox {
         return dimensions
     }
 
-    private fun perfectDimensions(amount: Int): List<IRange> {
+    private fun perfectDimensions(amount: Int): Dimensions {
         val dimensions = mutableListOf<IRange>()
         intRange(amount - 1).forEach({ dimensions.add(MockRange(true)) })
         return dimensions
     }
 
-    private fun mockDimensions(amount: Int): List<IRange> {
+    private fun mockDimensions(amount: Int): Dimensions {
         val dimensions = mutableListOf<IRange>()
         intRange(amount - 1).forEach({ dimensions.add(MockRange()) })
         return dimensions
