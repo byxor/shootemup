@@ -8,10 +8,8 @@ data class Projectile(var position: Vector,
     init { checkNumberOfDimensions() }
 
     fun travel(): Projectile {
-        val newPosition = this.position
-                .zip(this.velocity)
-                .map({(posElement, velElement) -> posElement + velElement })
-        return this.copy(newPosition)
+        val newPosition = (this.position zip this.velocity).map({ (p, v) -> p + v })
+        return copy(newPosition)
     }
 
     private fun checkNumberOfDimensions() {
@@ -21,4 +19,3 @@ data class Projectile(var position: Vector,
             )
     }
 }
-
