@@ -8,63 +8,49 @@ class AHitbox {
 
     @Test(expected = IllegalArgumentException::class)
     fun mustSpanAtLeastOneDimension() {
-        Hitbox(emptyList<IRange>())
+        val occupiedSpace = emptyList<IRange>()
+        Hitbox(occupiedSpace)
     }
 
     @Test
     fun doesNotContainAPointIfADimensionCheckFails() {
-        manyNumbersOfDimensions().forEach({ numOfDimensions ->
-            val dimensions = imperfectDimensions(numOfDimensions)
-            val point = randomPoint(numOfDimensions)
-            val hitbox = Hitbox(dimensions)
+        manyDimensions().forEach({ n ->
+            val occupiedSpace = failingDimensionChecks(n)
+            val point = randomPoint(n)
+            val hitbox = Hitbox(occupiedSpace)
             assertFalse(hitbox.contains(point))
         })
     }
 
     @Test
     fun containsAPointIfAllDimensionChecksPass() {
-        manyNumbersOfDimensions().forEach({ numOfDimensions->
-            val dimensions = perfectDimensions(numOfDimensions)
-            val point = randomPoint(numOfDimensions)
-            val hitbox = Hitbox(dimensions)
+        manyDimensions().forEach({ n->
+            val occupiedSpace = passingDimensionChecks(n)
+            val point = randomPoint(n)
+            val hitbox = Hitbox(occupiedSpace)
             assertTrue(hitbox.contains(point))
         })
     }
 
-    private fun manyNumbersOfDimensions(): IntRange {
-        return IntRange(1, 20)
-    }
+    private fun passingDimensionChecks(n: Int) = IntArray(n).map({ MockRange(true) })
 
-    private fun imperfectDimensions(amount: Int): Dimensions {
-        val dimensions = mutableListOf<IRange>()
+    private fun failingDimensionChecks(n: Int): Dimensions {
         val random = ThreadLocalRandom.current()
+        val numPassing = random.nextInt(n) - 1
 
-        val correctAmount = if (amount == 1) 0 else random.nextInt(amount - 1)
-        val incorrectAmount = amount - correctAmount
-
-        intRange(correctAmount - 1).forEach({ dimensions.add(MockRange(true)) })
-        intRange(incorrectAmount - 1).forEach({ dimensions.add(MockRange(false)) })
-
-        return dimensions
+        return intRange(n).map({ i ->
+            if (i < numPassing)
+                MockRange(true)
+            else
+                MockRange(false)
+        })
     }
 
-    private fun perfectDimensions(amount: Int): Dimensions {
-        val dimensions = mutableListOf<IRange>()
-        intRange(amount - 1).forEach({ dimensions.add(MockRange(true)) })
-        return dimensions
-    }
-
-    private fun mockDimensions(amount: Int): Dimensions {
-        val dimensions = mutableListOf<IRange>()
-        intRange(amount - 1).forEach({ dimensions.add(MockRange()) })
-        return dimensions
-    }
-
-    private fun randomPoint(numOfDimensions: Int): Vector {
+    private fun randomPoint(n: Int): Vector {
         val random = ThreadLocalRandom.current()
-        val magnitudes = IntArray(numOfDimensions) { random.nextInt(Integer.MAX_VALUE) }
-        return magnitudes.asList()
+        return IntArray(n) { random.nextInt(Integer.MAX_VALUE) }.asList()
     }
 
+    private fun manyDimensions() = IntRange(1, 20)
     private fun intRange(upper: Int) = IntRange(0, upper)
 }
