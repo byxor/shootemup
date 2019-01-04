@@ -1,7 +1,5 @@
 package shootemup
 
-import shootemup.geometry.*
-
 class Hitbox(private val occupiedSpace: Dimensions) {
 
     init { checkNumberOfDimensions() }

@@ -1,6 +1,4 @@
-package shootemup.geometry
-
-import shootemup.geometry.*;
+package shootemup
 
 data class Projectile(var position: Vector,
                       private val velocity: Vector) {
@@ -8,7 +6,7 @@ data class Projectile(var position: Vector,
     init { checkNumberOfDimensions() }
 
     fun travel(): Projectile {
-        val newPosition = (this.position zip this.velocity).map({ (p, v) -> p + v })
+        val newPosition = (position zip velocity).map({ (p, v) -> p + v })
         return copy(newPosition)
     }
 

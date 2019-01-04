@@ -2,7 +2,6 @@ import org.junit.Assert.*
 import org.junit.*
 import java.util.concurrent.ThreadLocalRandom
 import shootemup.*
-import shootemup.geometry.*
 
 class AHitbox {
 
