@@ -15,9 +15,7 @@ class AProjectile {
             try {
                 Projectile(it.position, it.velocity)
                 assertFalse(true)
-            } catch(e: IllegalArgumentException) {
-                // Good.
-            }
+            } catch(e: IllegalArgumentException) {}
         })
     }
 
