@@ -63,7 +63,7 @@ class AHitbox {
     private fun randomPoint(numOfDimensions: Int): Vector {
         val random = ThreadLocalRandom.current()
         val magnitudes = IntArray(numOfDimensions) { random.nextInt(Integer.MAX_VALUE) }
-        return Vector(magnitudes.asList())
+        return magnitudes.asList()
     }
 
     private fun intRange(upper: Int) = IntRange(0, upper)

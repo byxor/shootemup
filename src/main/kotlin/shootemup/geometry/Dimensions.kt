@@ -1,3 +1,3 @@
-package shootemup.geometry;
+package shootemup.geometry
 
 typealias Dimensions = List<IRange>

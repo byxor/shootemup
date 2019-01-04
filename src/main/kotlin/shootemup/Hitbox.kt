@@ -9,7 +9,7 @@ class Hitbox(private val dimensions: Dimensions) {
     fun contains(point: Vector): Boolean {
         for (i in dimensions.indices) {
             val dimension = dimensions.get(i)
-            val element = point.elements.get(i)
+            val element = point.get(i)
             if (!dimension.contains(element))
                 return false
         }
