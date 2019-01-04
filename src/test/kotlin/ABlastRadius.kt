@@ -50,7 +50,13 @@ class ABlastRadius {
                 T1(listOf(5), 10, listOf(11)),
                 T1(listOf(5), 10, listOf(12)),
                 T1(listOf(5), 10, listOf(13)),
-                T1(listOf(5), 10, listOf(14))
+                T1(listOf(5), 10, listOf(14)),
+
+                T1(listOf(0, 0), 1, listOf(0, 0)),
+
+                T1(listOf(-10, 0), 100, listOf(60, 60)),
+                T1(listOf(-10, 0), 100, listOf(43, 22)),
+                T1(listOf(-1000, 0), 100, listOf(-940, 29))
         ).forEach({
             val blastRadius = BlastRadius(it.position, it.radius)
             assertTrue(blastRadius.contains(it.point))
@@ -71,7 +77,22 @@ class ABlastRadius {
                 T1(listOf(5), 10, listOf(-5)),
                 T1(listOf(5), 10, listOf(-6)),
                 T1(listOf(5), 10, listOf(15)),
-                T1(listOf(5), 10, listOf(16))
+                T1(listOf(5), 10, listOf(16)),
+
+                T1(listOf(0, 0), 1, listOf(0, 1)),
+                T1(listOf(0, 0), 1, listOf(0, -1)),
+                T1(listOf(0, 0), 1, listOf(-1, 0)),
+                T1(listOf(0, 0), 1, listOf(1, 0)),
+                T1(listOf(0, 0), 1, listOf(-1, 1)),
+                T1(listOf(0, 0), 1, listOf(-1, -1)),
+                T1(listOf(0, 0), 1, listOf(1, -1)),
+                T1(listOf(0, 0), 1, listOf(1, 1)),
+
+                T1(listOf(0, 0), 100, listOf(95, 95)),
+                T1(listOf(-10, 0), 100, listOf(85, 95))
+                // T1(listOf(0, 0), 1, listOf(0, -1)),
+                // T1(listOf(0, 0), 1, listOf(-1, 0)),
+                // T1(listOf(0, 0), 1, listOf(1, 0)),
         ).forEach({
             val blastRadius = BlastRadius(it.position, it.radius)
             assertFalse(blastRadius.contains(it.point))

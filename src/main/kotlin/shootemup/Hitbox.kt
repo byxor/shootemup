@@ -5,7 +5,7 @@ class Hitbox(private val occupiedSpace: Dimensions) {
     init { checkNumberOfDimensions() }
 
     fun contains(point: Vector): Boolean {
-        occupiedSpace.zip(point).forEach({(range, magnitude) ->
+        (occupiedSpace zip point).forEach({(range, magnitude) ->
             if (!range.contains(magnitude))
                 return false
         })
