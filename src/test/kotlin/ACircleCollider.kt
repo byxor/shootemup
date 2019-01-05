@@ -2,7 +2,7 @@ import org.junit.Assert.*
 import org.junit.*
 import shootemup.*
 
-class ABlastRadius {
+class ACircleCollider {
 
     @Test
     fun mustHaveAPositiveRadius() {
@@ -15,7 +15,7 @@ class ABlastRadius {
         ).forEach({ position ->
             listOf(-1, -2, -3, -4, -5, -6).forEach({ radius ->
                 try {
-                    BlastRadius(position, radius)
+                    CircleCollider(position, radius)
                     assertFalse(true)
                 } catch (e: IllegalArgumentException) {}
             })
@@ -58,8 +58,8 @@ class ABlastRadius {
                 T1(listOf(-10, 0), 100, listOf(43, 22)),
                 T1(listOf(-1000, 0), 100, listOf(-940, 29))
         ).forEach({
-            val blastRadius = BlastRadius(it.position, it.radius)
-            assertTrue(blastRadius.isTouching(it.point))
+            val circleCollider = CircleCollider(it.position, it.radius)
+            assertTrue(circleCollider.isTouching(it.point))
         })
     }
 
@@ -94,8 +94,8 @@ class ABlastRadius {
                 // T1(listOf(0, 0), 1, listOf(-1, 0)),
                 // T1(listOf(0, 0), 1, listOf(1, 0)),
         ).forEach({
-            val blastRadius = BlastRadius(it.position, it.radius)
-            assertFalse(blastRadius.isTouching(it.point))
+            val circleCollider = CircleCollider(it.position, it.radius)
+            assertFalse(circleCollider.isTouching(it.point))
         })
     }
 }

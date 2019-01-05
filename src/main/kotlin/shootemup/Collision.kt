@@ -6,7 +6,7 @@ sealed class Collider {
     abstract fun isTouching(point: Vector): Boolean
 }
 
-class Hitbox(private val occupiedSpace: Dimensions) : Collider() {
+class BoxCollider(private val occupiedSpace: Dimensions) : Collider() {
 
     init { checkNumberOfDimensions() }
 
@@ -24,8 +24,8 @@ class Hitbox(private val occupiedSpace: Dimensions) : Collider() {
     }
 }
 
-class BlastRadius(private val position: Vector,
-                  private val radius: Int) : Collider() {
+class CircleCollider(private val position: Vector,
+                     private val radius: Int) : Collider() {
 
     init { checkRadius() }
 

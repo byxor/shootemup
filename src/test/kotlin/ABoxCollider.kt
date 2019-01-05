@@ -3,12 +3,12 @@ import org.junit.*
 import java.util.concurrent.ThreadLocalRandom
 import shootemup.*
 
-class AHitbox {
+class ABoxCollider {
 
     @Test(expected = IllegalArgumentException::class)
     fun mustSpanAtLeastOneDimension() {
         val occupiedSpace = emptyList<IRange>()
-        Hitbox(occupiedSpace)
+        BoxCollider(occupiedSpace)
     }
 
     @Test
@@ -16,8 +16,8 @@ class AHitbox {
         manyDimensions().forEach({ n ->
             val occupiedSpace = failingDimensionChecks(n)
             val point = randomPoint(n)
-            val hitbox = Hitbox(occupiedSpace)
-            assertFalse(hitbox.isTouching(point))
+            val boxCollider = BoxCollider(occupiedSpace)
+            assertFalse(boxCollider.isTouching(point))
         })
     }
 
@@ -26,8 +26,8 @@ class AHitbox {
         manyDimensions().forEach({ n->
             val occupiedSpace = passingDimensionChecks(n)
             val point = randomPoint(n)
-            val hitbox = Hitbox(occupiedSpace)
-            assertTrue(hitbox.isTouching(point))
+            val boxCollider = BoxCollider(occupiedSpace)
+            assertTrue(boxCollider.isTouching(point))
         })
     }
 
