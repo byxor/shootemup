@@ -59,7 +59,7 @@ class ABlastRadius {
                 T1(listOf(-1000, 0), 100, listOf(-940, 29))
         ).forEach({
             val blastRadius = BlastRadius(it.position, it.radius)
-            assertTrue(blastRadius.contains(it.point))
+            assertTrue(blastRadius.isTouching(it.point))
         })
     }
 
@@ -95,7 +95,7 @@ class ABlastRadius {
                 // T1(listOf(0, 0), 1, listOf(1, 0)),
         ).forEach({
             val blastRadius = BlastRadius(it.position, it.radius)
-            assertFalse(blastRadius.contains(it.point))
+            assertFalse(blastRadius.isTouching(it.point))
         })
     }
 }

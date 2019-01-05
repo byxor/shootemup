@@ -12,22 +12,22 @@ class AHitbox {
     }
 
     @Test
-    fun doesNotContainAPointIfADimensionCheckFails() {
+    fun isNotTouchingAPointIfADimensionCheckFails() {
         manyDimensions().forEach({ n ->
             val occupiedSpace = failingDimensionChecks(n)
             val point = randomPoint(n)
             val hitbox = Hitbox(occupiedSpace)
-            assertFalse(hitbox.contains(point))
+            assertFalse(hitbox.isTouching(point))
         })
     }
 
     @Test
-    fun containsAPointIfAllDimensionChecksPass() {
+    fun isTouchingAPointIfAllDimensionChecksPass() {
         manyDimensions().forEach({ n->
             val occupiedSpace = passingDimensionChecks(n)
             val point = randomPoint(n)
             val hitbox = Hitbox(occupiedSpace)
-            assertTrue(hitbox.contains(point))
+            assertTrue(hitbox.isTouching(point))
         })
     }
 

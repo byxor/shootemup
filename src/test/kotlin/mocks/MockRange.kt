@@ -8,7 +8,7 @@ class MockRange(private val returnValue: Boolean = false): IRange {
     this.valuesUsed = hashSetOf()
   }
 
-  override fun contains(value:Int):Boolean {
+  override fun contains(value: Int): Boolean {
     valuesUsed.add(value)
     return returnValue
   }
