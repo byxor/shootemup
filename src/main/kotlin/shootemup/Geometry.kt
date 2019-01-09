@@ -5,7 +5,12 @@ interface IRange {
 }
 
 typealias Dimensions = List<IRange>
+
 typealias Vector = List<Int>
+
+fun vectorOf(vararg components: Int): Vector {
+    return listOf<Int>(*components.toTypedArray())
+} 
 
 // Member variables are only public to ease testing.
 // Do not read them; they are implementation details.
@@ -14,5 +19,3 @@ class Range(val _lower: Int, val _upper: Int) : IRange {
         return value >= _lower && value < _upper
     }
 }
-
-

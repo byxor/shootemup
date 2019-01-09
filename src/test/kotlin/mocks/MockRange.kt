@@ -1,3 +1,5 @@
+package mocks
+
 import shootemup.IRange
 
 class MockRange(private val returnValue: Boolean = false): IRange {

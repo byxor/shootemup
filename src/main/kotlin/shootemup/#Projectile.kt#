@@ -12,9 +12,8 @@ data class Projectile(var position: Vector,
 
     private fun checkNumberOfDimensions() {
         if (position.size != velocity.size) {
-            throw IllegalArgumentException(
-                "Position and Velocity must have the same number of dimensions"
-            )
+            val message = "Position and Velocity must have the same number of dimensions"
+            throw IllegalArgumentException(message)
         }
     }
 }
