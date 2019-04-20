@@ -34,7 +34,7 @@ fun isColliding(c1: CircleCollider, c2: PointCollider): Boolean {
 }
 
 fun isColliding(c1: CircleCollider, c2: CircleCollider): Boolean {
-    return true
+    return false
 }
 
 
