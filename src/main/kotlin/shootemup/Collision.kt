@@ -34,7 +34,9 @@ fun isColliding(c1: CircleCollider, c2: PointCollider): Boolean {
 }
 
 fun isColliding(c1: CircleCollider, c2: CircleCollider): Boolean {
-    return false
+    val distanceBetweenCircles = abs(c1.position.get(0) - c2.position.get(0))
+    val sumOfRadii = c1.radius + c2.radius
+    return distanceBetweenCircles < sumOfRadii
 }
 
 

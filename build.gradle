@@ -37,7 +37,7 @@ testlogger {
     showFailed true
 
     // stdout & stderr output
-    showStandardStreams false
+    showStandardStreams true
     showPassedStandardStreams true
     showSkippedStandardStreams true
     showFailedStandardStreams true

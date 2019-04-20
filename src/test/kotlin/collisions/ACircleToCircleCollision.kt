@@ -12,9 +12,9 @@ class ACircleToCircleCollision {
     ))
 
     @Test
-    fun occursBetweenNearbyCircles() {
-        
-    }
+    fun occursBetweenNearbyCircles() = shouldAllCollide(listOf(
+            Entry(vectorOf(0), 1, vectorOf(1), 1)
+    ))
 
     @Test
     fun doesNotOccurWhenTheEdgesTouch() = shouldAllNotCollide(listOf(
