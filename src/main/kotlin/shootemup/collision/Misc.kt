@@ -1,24 +1,6 @@
-package shootemup
+package shootemup.collision
 
 import kotlin.math.*
-
-fun isColliding(c1: PointCollider, c2: PointCollider): Boolean {
-    fun higherDimensionsAreZero(smaller: Vector, larger: Vector): Boolean {
-        val lower = smaller.size
-        val upper = larger.size - 1
-        val range = IntRange(lower, upper)
-        larger.slice(range).forEach {
-            component -> if (component != 0) return false
-        }
-        return true
-    }
-
-    return when {
-        c1.position.size < c2.position.size -> higherDimensionsAreZero(c1.position, c2.position)
-        c1.position.size > c2.position.size -> higherDimensionsAreZero(c2.position, c1.position)
-        else -> c1.position == c2.position
-    }
-}
 
 fun isColliding(c1: PointCollider, c2: CircleCollider): Boolean {
     // https://www.mathsisfun.com/algebra/distance-2-points.html

@@ -1,5 +1,7 @@
 package shootemup
 
+import shootemup.geometry.Vector
+
 data class Projectile(var position: Vector,
                       private val velocity: Vector) {
 

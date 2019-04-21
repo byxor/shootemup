@@ -2,7 +2,8 @@ package collisions
 
 import org.junit.Assert.*
 import org.junit.*
-import shootemup.*
+import shootemup.geometry.*
+import shootemup.collision.*
 
 class APointToPointCollision {
 

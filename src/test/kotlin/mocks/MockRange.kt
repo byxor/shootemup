@@ -1,6 +1,6 @@
 package mocks
 
-import shootemup.IRange
+import shootemup.geometry.IRange
 
 class MockRange(private val returnValue: Boolean = false): IRange {
 

@@ -1,4 +1,6 @@
-package shootemup
+package shootemup.collision
+
+import shootemup.geometry.Vector
 
 sealed class Collider {}
 

@@ -1,6 +1,6 @@
 import org.junit.Assert.*
 import org.junit.*
-import shootemup.*
+import shootemup.geometry.*
 
 class ARange {
 
