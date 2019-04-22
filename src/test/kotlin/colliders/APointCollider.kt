@@ -1,13 +1,14 @@
 package colliders
 
-import org.junit.Assert.*
-import org.junit.*
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.Assertions.*
 import shootemup.geometry.*
 import shootemup.collision.*
 
 class APointCollider {
-    @Test(expected = IllegalArgumentException::class)
-    fun mustSpanAtLeastOneDimension() {
+    @Test
+    fun mustSpanAtLeastOneDimension() = assertThrows<IllegalArgumentException>({
         PointCollider(vectorOf())
-    }
+    })
+
 }
